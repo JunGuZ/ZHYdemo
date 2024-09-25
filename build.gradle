@@ -29,6 +29,19 @@ dependencies {
 	annotationProcessor 'org.projectlombok:lombok'
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
 	testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
+	implementation 'com.alibaba.fastjson2:fastjson2:2.0.43'
+
+	// Apache HttpClient
+	implementation 'org.apache.httpcomponents:httpclient:4.5.13'
+
+	// Apache HttpCore
+	implementation 'org.apache.httpcomponents:httpcore:4.4.14'
+
+	// Commons Lang
+	implementation 'commons-lang:commons-lang:2.6'
+
+	// org.json
+	implementation 'org.json:org.json:chargebee-1.0' // 更新为实际版本
 }
 
 tasks.named('test') {
