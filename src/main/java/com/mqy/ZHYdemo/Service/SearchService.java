@@ -32,7 +32,6 @@ public class SearchService {
         if (token == null || "".equals(token) || apikey == null || "".equals(apikey)) {
             return new ResponseBody(400, "无权限", null);
         }
-
         Map<String, String> headers = new HashMap<>();
         headers.put("Content-Type", "application/json");
         headers.put("authorization", "Bearer " + token);
@@ -42,8 +41,31 @@ public class SearchService {
 
         // 构造请求体
         PatentQueryParams body = new PatentQueryParams();
-        body.setQueryText(query.getQueryText());
-        body.setOffset(query.getOffset());
+
+        // 校验前端传入的字段，非空就覆写
+        if (query.getQueryText() == null || "".equals(query.getQueryText())) {
+            return new ResponseBody(68300004, "请求参数错误（QueryText不能为空）", null);
+        } else {
+            body.setQueryText(query.getQueryText());
+        }
+        if (query.getLimit() != 0) {
+            body.setLimit(query.getLimit());
+        }
+        if (query.getCollapseBy() != null && !"".equals(query.getCollapseBy())) {
+            body.setCollapseBy(query.getCollapseBy());
+        }
+        if (query.getCollapseType() != null && !"".equals(query.getCollapseType())) {
+            body.setCollapseType(query.getCollapseType());
+        }
+        if (query.getCollapseOrder() != null && !"".equals(query.getCollapseOrder())) {
+            body.setCollapseOrder(query.getCollapseOrder());
+        }
+        if (query.getField() != null && !"".equals(query.getField())) {
+            body.setField(query.getField());
+        }
+        if (query.getOrder() != null && !"".equals(query.getOrder())) {
+            body.setOrder(query.getOrder());
+        }
 
         JSONObject dataBody = new JSONObject();
         dataBody.put("offset", body.getOffset()); // 偏移量
